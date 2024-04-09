@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "Pulling update (If available)"
+cd /srv/cst/mapping
+git pull
+
 #echo "Running mapcrafter"
 
 #/srv/cst/mapping/software/mapcrafter-world113/src/mapcrafter --config /srv/cst/mapping/config/mapcrafter/main.conf
@@ -10,10 +14,10 @@
 
 #/srv/cst/mapping/software/overviewer/overviewer --config /srv/cst/mapping/config/overviewer/main.py
 
-#echo "Running Unmined"
+echo "Running Unmined"
 
 # collect playernames for unmined display:
-/srv/cst/mapping/software/scripts/uuid_to_name
+/srv/cst/mapping/scripts/uuid_to_name
 
 # unmined Config:
 unminedConfigDir="/srv/cst/mapping/config/unmined"
@@ -25,7 +29,7 @@ um_cfg_nt="$unminedConfigDir/nether.json"
 um_cfg_nt_roof="$unminedConfigDir/nether_roof.json"
 um_cfg_nt_inh="$unminedConfigDir/nether_inhabited.json"
 um_cfg_end="$unminedConfigDir/the_end.json"
-um_common_options="--zoomout=6 --zoomin=3 --background=#000000 --chunkprocessors=6"
+um_common_options="--zoomout=6 --zoomin=3 --background=#000000 --chunkprocessors=6 --players"
 
 #unmined worlds
 um_wld_survival="--world=/srv/cst/survival/world"
