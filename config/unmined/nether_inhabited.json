@@ -1,0 +1,92 @@
+{
+  "BlockFilterSettings": {
+    "PredefinedFilters": {}
+  },
+  "DataPackSettings": {
+    "IsEnabled": true,
+    "LoadBiomeFoliageTint": true,
+    "LoadBiomeGrassTint": true,
+    "LoadBiomeWaterTint": true
+  },
+  "HighlightSettings": {
+    "IsEnabled": true,
+    "Items": [
+      {
+        "DataSource": "InhabitedTime",
+        "IsEnabled": true,
+        "Visualization": "ChunkRect",
+        "VisualizationSettings": "{\"LargestMarkerValue\":10000,\"Opacity\":50}"
+      }
+    ]
+  },
+  "RendererSettings": {
+    "ColoringMode": 0,
+    "HeightmapGradient": {
+      "Steps": [
+        {
+          "Color": "hsl(150, 0, 20)",
+          "Position": -64.0
+        },
+        {
+          "Color": "hsl(150, 0, 30)"
+        },
+        {
+          "Color": "hsl(150, 30, 30)",
+          "Position": 32.0
+        },
+        {
+          "Color": "hsl(120, 60, 30)",
+          "Position": 62.0
+        },
+        {
+          "Color": "hsl(120, 70, 40)",
+          "Position": 80.0
+        },
+        {
+          "Color": "hsl(90, 60, 50)",
+          "Position": 96.0
+        },
+        {
+          "Color": "hsl( 72, 80, 40)",
+          "Position": 112.0
+        },
+        {
+          "Color": "hsl( 48, 80, 30)",
+          "Position": 128.0
+        },
+        {
+          "Color": "hsl( 48, 50, 30)",
+          "Position": 144.0
+        },
+        {
+          "Color": "hsl( 48, 20, 60)",
+          "Position": 160.0
+        },
+        {
+          "Color": "hsl( 48, 10, 80)",
+          "Position": 255.0
+        },
+        {
+          "Color": "hsl( 48, 0, 100)",
+          "Position": 384.0
+        }
+      ]
+    },
+    "InhabitedChunksOnly": false,
+    "NightMode": false,
+    "ShadowMode": 0,
+    "Shadows": false,
+    "TransparentUnderground": true,
+    "UseCaveEnhancements": true,
+    "UseElevationShading": true,
+    "UseTextures": false,
+    "WaterVisibilityRange": 16
+  },
+  "SlicerSettings": {
+    "TopY": 61,
+    "UseTopY": true
+  },
+  "StylesheetSettings": {
+    "Settings": {}
+  }
+}

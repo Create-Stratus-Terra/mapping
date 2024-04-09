@@ -1,0 +1,32 @@
+{
+  "BlockFilterSettings": {
+    "PredefinedFilters": {}
+  },
+  "DataPackSettings": {
+    "IsEnabled": true,
+    "LoadBiomeFoliageTint": true,
+    "LoadBiomeGrassTint": true,
+    "LoadBiomeWaterTint": true
+  },
+  "HighlightSettings": {
+    "Items": []
+  },
+  "RendererSettings": {
+    "InhabitedChunksOnly": false,
+    "NightMode": true,
+    "ShadowMode": 1,
+    "Shadows": true,
+    "TransparentUnderground": true,
+    "UnknownBlocksAs": ""
+  },
+  "SlicerSettings": {
+    "ReplaceFlowingWater": false
+  },
+  "StylesheetSettings": {
+    "Settings": {
+      "copperColoring": "True",
+      "useLandElevationGradient": "True",
+      "useUnderground": "True"
+    }
+  }
+}
