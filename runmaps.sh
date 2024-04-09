@@ -1,7 +1,8 @@
 #!/bin/bash
 
-echo "Pulling update (If available)"
 cd /srv/cst/mapping
+
+echo "Pulling update (If available)"
 git pull
 
 #echo "Running mapcrafter"
@@ -16,8 +17,13 @@ git pull
 
 echo "Running Unmined"
 
+# Zip Template:
+mkdir -p ./software/unmined/templates
+rm -f ./software/unmined/templates/default.web.template.zip
+zip -r ./software/unmined/templates/default.web.template.zip ./config/unmined/templates/default.web.template
+
 # collect playernames for unmined display:
-/srv/cst/mapping/scripts/uuid_to_name
+./scripts/uuid_to_name
 
 # unmined Config:
 unminedConfigDir="/srv/cst/mapping/config/unmined"
