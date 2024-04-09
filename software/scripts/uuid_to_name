@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# convert all usernamecache.json to unmined format
+
+Files="/srv/cst/*/usernamecache.json"
+
+# Merge all json files to deduplicate keys:
+UNCPath="/tmp/usernamecache.json"
+jq -s 'add' $Files > $UNCPath
+
+# Get Content of usernamecache.json
+UNCContent=$(cat $UNCPath)
+# Convert json to unmined format
+# The json is an object with the uuid being the key, the name being the value.
+UNMContent=$(echo "$UNCContent" | jq -r 'to_entries[] | "\(.key) \(.value)"')
+
+# Output the unmined format
+echo "$UNMContent" > /srv/cst/mapping/software/unmined/config/playernames.txt

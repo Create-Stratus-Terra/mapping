@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# first version: https://discord.com/channels/816127440492822558/928768878685851690/999021568883707915
+for file in *.png; do echo $file; magick.exe convert $file -resize 1x1 txt:- | grep -Po "#[[:xdigit:]]{6}"; echo $'\n'; done >textures_hex.txt
+
+# Less Janky Version: https://discord.com/channels/816127440492822558/928768878685851690/999045614958543050
+for file in *.png
+do
+  file=$file
+  output=`./magick convert $file -resize 1x1 txt:- | grep -Po "#[[:xdigit:]]{6}"`
+  echo "      minecraft:"${file%.*}": '"$output"'"
+done >textures_hex.txt
