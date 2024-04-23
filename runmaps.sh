@@ -5,6 +5,14 @@ cd /srv/cst/mapping
 echo "Pulling update (If available)"
 git pull
 
+#create a lockfile
+if [ -f /srv/cst/mapping/lockfile ]; then
+  echo "Lockfile exists, exiting"
+  exit 1
+else
+  touch /srv/cst/mapping/lockfile
+fi
+
 #echo "Running mapcrafter"
 
 #/srv/cst/mapping/software/mapcrafter-world113/src/mapcrafter --config /srv/cst/mapping/config/mapcrafter/main.conf
@@ -67,3 +75,6 @@ um_wld_testing_end="$um_wld_testing --dimension=1"
 /srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_testing_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$um_output_dir/testing/nether_roof
 /srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_testing_nt --mapsettings=$um_cfg_nt $um_common_options --output=$um_output_dir/testing/nether
 /srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_testing_end --mapsettings=$um_cfg_end $um_common_options --output=$um_output_dir/testing/theend
+
+# remove lockfile
+rm -f /srv/cst/mapping/lockfile
