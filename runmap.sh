@@ -50,11 +50,11 @@ um_wld="--world=$worldPath"
 um_wld_nt="$um_wld --dimension=-1"
 um_wld_end="$um_wld --dimension=1"
 
-$um_cli_bin web render $um_wld_testing --mapsettings=$um_cfg_ow $um_common_options --output=$outputPath/overworld
-$um_cli_bin web render $um_wld_testing --mapsettings=$um_cfg_ow_night $um_common_options --output=$outputPath/overworld_night
-$um_cli_bin web render $um_wld_testing_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$outputPath/nether_roof
-$um_cli_bin web render $um_wld_testing_nt --mapsettings=$um_cfg_nt $um_common_options --output=$outputPath/nether
-$um_cli_bin web render $um_wld_testing_end --mapsettings=$um_cfg_end $um_common_options --output=$outputPath/theend
+$um_cli_bin web render $um_wld --mapsettings=$um_cfg_ow $um_common_options --output=$outputPath/overworld
+$um_cli_bin web render $um_wld --mapsettings=$um_cfg_ow_night $um_common_options --output=$outputPath/overworld_night
+$um_cli_bin web render $um_wld_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$outputPath/nether_roof
+$um_cli_bin web render $um_wld_nt --mapsettings=$um_cfg_nt $um_common_options --output=$outputPath/nether
+$um_cli_bin web render $um_wld_end --mapsettings=$um_cfg_end $um_common_options --output=$outputPath/theend
 
 # remove lockfile
 rm -f /srv/cst/mapping/lockfile
