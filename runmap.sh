@@ -4,9 +4,6 @@ rootdir=/srv/cst/mapping
 
 cd $rootdir
 
-echo "Pulling update (If available)"
-git pull
-
 if ! [ -z $1 ]; then
   worldPath=$1
 fi
