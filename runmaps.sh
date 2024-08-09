@@ -1,16 +1,22 @@
 #!/bin/bash
 
-cd /srv/cst/mapping
+rootdir=/srv/cst/mapping
+
+cd $rootdir
 
 echo "Pulling update (If available)"
 git pull
 
+if ! [ -z $1 ]; then
+  onlyConfigX=$1
+fi
+
 #create a lockfile
-if [ -f /srv/cst/mapping/lockfile ]; then
+if [ -f $rootdir/lockfile ]; then
   echo "Lockfile exists, exiting"
   exit 1
 else
-  touch /srv/cst/mapping/lockfile
+  touch $rootdir/lockfile
 fi
 
 #echo "Running mapcrafter"
@@ -26,14 +32,18 @@ fi
 echo "Running Unmined"
 
 # Zip Template:
-mkdir -p ./software/unmined/templates
-rm -f ./software/unmined/templates/default.web.template.zip
-zip -r ./software/unmined/templates/default.web.template.zip ./config/unmined/templates/default.web.template
+mkdir -p $rootdir/software/unmined/templates #create dir if not exists
+rm -f $rootdir/software/unmined/templates/default.web.template.zip #remove old template
+cd $rootdir/config/unmined/templates/default.web.template #change into template folder
+zip -r $rootdir/software/unmined/templates/default.web.template.zip ./* #zip contents of folder
+
+cd $rootdir
 
 # collect playernames for unmined display:
 ./scripts/uuid_to_name
 
 # unmined Config:
+um_cli_bin="/srv/cst/mapping/software/unmined/unmined-cli"
 unminedConfigDir="/srv/cst/mapping/config/unmined"
 um_output_dir="/srv/cst/mapping/output/unmined"
 um_cfg_ow="$unminedConfigDir/worldsettings/overworld.json"
@@ -58,23 +68,29 @@ um_wld_testing="--world=/srv/cst/testing/world"
 um_wld_testing_nt="$um_wld_testing --dimension=-1"
 um_wld_testing_end="$um_wld_testing --dimension=1"
 
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_survival --mapsettings=$um_cfg_ow $um_common_options --output=$um_output_dir/survival/overworld
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_survival --mapsettings=$um_cfg_ow_night $um_common_options --output=$um_output_dir/survival/overworld_night
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_survival_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$um_output_dir/survival/nether_roof
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_survival_nt --mapsettings=$um_cfg_nt $um_common_options --output=$um_output_dir/survival/nether
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_survival_end --mapsettings=$um_cfg_end $um_common_options --output=$um_output_dir/survival/theend
+if [ -z $onlyConfigX ] || [ "$onlyConfigX" = "survival" ]; then
+  $um_cli_bin web render $um_wld_survival --mapsettings=$um_cfg_ow $um_common_options --output=$um_output_dir/survival/overworld
+  $um_cli_bin web render $um_wld_survival --mapsettings=$um_cfg_ow_night $um_common_options --output=$um_output_dir/survival/overworld_night
+  $um_cli_bin web render $um_wld_survival_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$um_output_dir/survival/nether_roof
+  $um_cli_bin web render $um_wld_survival_nt --mapsettings=$um_cfg_nt $um_common_options --output=$um_output_dir/survival/nether
+  $um_cli_bin web render $um_wld_survival_end --mapsettings=$um_cfg_end $um_common_options --output=$um_output_dir/survival/theend
+fi
 
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_creative --mapsettings=$um_cfg_ow $um_common_options --output=$um_output_dir/creative/overworld
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_creative --mapsettings=$um_cfg_ow_night $um_common_options --output=$um_output_dir/creative/overworld_night
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_creative_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$um_output_dir/creative/nether_roof
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_creative_nt --mapsettings=$um_cfg_nt $um_common_options $um_common_options --output=$um_output_dir/creative/nether
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_creative_end --mapsettings=$um_cfg_end $um_common_options $um_common_options --output=$um_output_dir/creative/theend
+if [ -z $onlyConfigX ] || [ "$onlyConfigX" = "creative" ]; then
+  $um_cli_bin web render $um_wld_creative --mapsettings=$um_cfg_ow $um_common_options --output=$um_output_dir/creative/overworld
+  $um_cli_bin web render $um_wld_creative --mapsettings=$um_cfg_ow_night $um_common_options --output=$um_output_dir/creative/overworld_night
+  $um_cli_bin web render $um_wld_creative_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$um_output_dir/creative/nether_roof
+  $um_cli_bin web render $um_wld_creative_nt --mapsettings=$um_cfg_nt $um_common_options --output=$um_output_dir/creative/nether
+  $um_cli_bin web render $um_wld_creative_end --mapsettings=$um_cfg_end $um_common_options --output=$um_output_dir/creative/theend
+fi
 
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_testing --mapsettings=$um_cfg_ow $um_common_options --output=$um_output_dir/testing/overworld
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_testing --mapsettings=$um_cfg_ow_night $um_common_options --output=$um_output_dir/testing/overworld_night
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_testing_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$um_output_dir/testing/nether_roof
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_testing_nt --mapsettings=$um_cfg_nt $um_common_options --output=$um_output_dir/testing/nether
-/srv/cst/mapping/software/unmined/unmined-cli web render $um_wld_testing_end --mapsettings=$um_cfg_end $um_common_options --output=$um_output_dir/testing/theend
+if [ -z $onlyConfigX ] || [ "$onlyConfigX" = "testing" ]; then
+  $um_cli_bin web render $um_wld_testing --mapsettings=$um_cfg_ow $um_common_options --output=$um_output_dir/testing/overworld
+  $um_cli_bin web render $um_wld_testing --mapsettings=$um_cfg_ow_night $um_common_options --output=$um_output_dir/testing/overworld_night
+  $um_cli_bin web render $um_wld_testing_nt --mapsettings=$um_cfg_nt_roof $um_common_options --output=$um_output_dir/testing/nether_roof
+  $um_cli_bin web render $um_wld_testing_nt --mapsettings=$um_cfg_nt $um_common_options --output=$um_output_dir/testing/nether
+  $um_cli_bin web render $um_wld_testing_end --mapsettings=$um_cfg_end $um_common_options --output=$um_output_dir/testing/theend
+fi
 
 # remove lockfile
 rm -f /srv/cst/mapping/lockfile
